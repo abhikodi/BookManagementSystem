@@ -63,7 +63,7 @@ Techstack includes HTML,BootStrap, jQuery, AJAX, Flask and Elastic
 5. Index the `books.jsonl` file into Elasticsearch:
 - The `books.jsonl` file should contain book data in the following format:
   ```
-  { "index": {} }
+  {"index": {"_index": "a", "_id": 1}}
   { "title": "Book Title", "author": "Author Name", "genre": "Genre", "publication_year": 2000, "language": "English", "rating": 4.5 }
   ```
   *(Each entry alternates between a metadata line `{ "index": {} }` and the actual book data.)*
