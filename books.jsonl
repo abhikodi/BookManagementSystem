@@ -1,0 +1,114 @@
+{"index": {"_index": "a", "_id": 1}}
+{"title": "To Kill a Mockingbird", "author": "Harper Lee", "genre": "Fiction", "publication_year": 1960, "language": "English", "rating": 4.6}
+{"index": {"_index": "a", "_id": 2}}
+{"title": "1984", "author": "George Orwell", "genre": "Dystopian", "publication_year": 1949, "language": "English", "rating": 4.1}
+{"index": {"_index": "a", "_id": 3}}
+{"title": "Pride and Prejudice", "author": "Jane Austen", "genre": "Romance", "publication_year": 1813, "language": "English", "rating": 1.6}
+{"index": {"_index": "a", "_id": 4}}
+{"title": "The Great Gatsby", "author": "F. Scott Fitzgerald", "genre": "Fiction", "publication_year": 1925, "language": "English", "rating": 3.9}
+{"index": {"_index": "a", "_id": 5}}
+{"title": "The Catcher in the Rye", "author": "J.D. Salinger", "genre": "Fiction", "publication_year": 1951, "language": "English", "rating": 2.8}
+{"index": {"_index": "a", "_id": 6}}
+{"title": "The Lord of the Rings", "author": "J.R.R. Tolkien", "genre": "Fantasy", "publication_year": 1954, "language": "English", "rating": 4.5}
+{"index": {"_index": "a", "_id": 7}}
+{"title": "The Hobbit", "author": "J.R.R. Tolkien", "genre": "Fantasy", "publication_year": 1937, "language": "English", "rating": 4.3}
+{"index": {"_index": "a", "_id": 8}}
+{"title": "Jane Eyre", "author": "Charlotte Bront\u00eb", "genre": "Romance", "publication_year": 1847, "language": "English", "rating": 1.5}
+{"index": {"_index": "a", "_id": 9}}
+{"title": "Brave New World", "author": "Aldous Huxley", "genre": "Dystopian", "publication_year": 1932, "language": "English", "rating": 4.6}
+{"index": {"_index": "a", "_id": 10}}
+{"title": "The Diary of a Young Girl", "author": "Anne Frank", "genre": "Memoir", "publication_year": 1947, "language": "English", "rating": 2.4}
+{"index": {"_index": "a", "_id": 11}}
+{"title": "War and Peace", "author": "Leo Tolstoy", "genre": "Historical Fiction", "publication_year": 1869, "language": "English", "rating": 3.8}
+{"index": {"_index": "a", "_id": 12}}
+{"title": "Moby-Dick", "author": "Herman Melville", "genre": "Adventure", "publication_year": 1851, "language": "English", "rating": 3.6}
+{"index": {"_index": "a", "_id": 13}}
+{"title": "Crime and Punishment", "author": "Fyodor Dostoevsky", "genre": "Psychological Fiction", "publication_year": 1866, "language": "English", "rating": 3.0}
+{"index": {"_index": "a", "_id": 14}}
+{"title": "The Brothers Karamazov", "author": "Fyodor Dostoevsky", "genre": "Philosophical Fiction", "publication_year": 1880, "language": "English", "rating": 1.5}
+{"index": {"_index": "a", "_id": 15}}
+{"title": "Wuthering Heights", "author": "Emily Bront\u00eb", "genre": "Romance", "publication_year": 1847, "language": "English", "rating": 1.6}
+{"index": {"_index": "a", "_id": 16}}
+{"title": "Anna Karenina", "author": "Leo Tolstoy", "genre": "Romance", "publication_year": 1877, "language": "English", "rating": 3.3}
+{"index": {"_index": "a", "_id": 17}}
+{"title": "Don Quixote", "author": "Miguel de Cervantes", "genre": "Adventure", "publication_year": 1605, "language": "English", "rating": 1.3}
+{"index": {"_index": "a", "_id": 18}}
+{"title": "Ulysses", "author": "James Joyce", "genre": "Modernist Fiction", "publication_year": 1922, "language": "English", "rating": 3.0}
+{"index": {"_index": "a", "_id": 19}}
+{"title": "The Divine Comedy", "author": "Dante Alighieri", "genre": "Epic Poetry", "publication_year": 1320, "language": "English", "rating": 1.4}
+{"index": {"_index": "a", "_id": 20}}
+{"title": "The Iliad", "author": "Homer", "genre": "Epic Poetry", "publication_year": -750, "language": "English", "rating": 4.6}
+{"index": {"_index": "a", "_id": 21}}
+{"title": "The Picture of Dorian Gray", "author": "Oscar Wilde", "genre": "Fiction", "publication_year": 1890, "language": "English", "rating": 3.4}
+{"index": {"_index": "a", "_id": 22}}
+{"title": "Dracula", "author": "Bram Stoker", "genre": "Gothic Fiction", "publication_year": 1897, "language": "English", "rating": 3.3}
+{"index": {"_index": "a", "_id": 23}}
+{"title": "Frankenstein", "author": "Mary Shelley", "genre": "Science Fiction", "publication_year": 1818, "language": "English", "rating": 3.2}
+{"index": {"_index": "a", "_id": 24}}
+{"title": "The Adventures of Sherlock Holmes", "author": "Arthur Conan Doyle", "genre": "Mystery", "publication_year": 1892, "language": "English", "rating": 2.9}
+{"index": {"_index": "a", "_id": 25}}
+{"title": "The Grapes of Wrath", "author": "John Steinbeck", "genre": "Fiction", "publication_year": 1939, "language": "English", "rating": 4.4}
+{"index": {"_index": "a", "_id": 26}}
+{"title": "The Sun Also Rises", "author": "Ernest Hemingway", "genre": "Fiction", "publication_year": 1926, "language": "English", "rating": 2.5}
+{"index": {"_index": "a", "_id": 27}}
+{"title": "Catch-22", "author": "Joseph Heller", "genre": "Satire", "publication_year": 1961, "language": "English", "rating": 2.0}
+{"index": {"_index": "a", "_id": 28}}
+{"title": "One Hundred Years of Solitude", "author": "Gabriel Garc", "genre": "Magical Realism", "publication_year": 1967, "language": "English", "rating": 1.7}
+{"index": {"_index": "a", "_id": 29}}
+{"title": "Beloved", "author": "Toni Morrison", "genre": "Historical Fiction", "publication_year": 1987, "language": "English", "rating": 3.4}
+{"index": {"_index": "a", "_id": 30}}
+{"title": "Slaughterhouse-Five", "author": "Kurt Vonnegut", "genre": "Science Fiction", "publication_year": 1969, "language": "English", "rating": 2.2}
+{"index": {"_index": "a", "_id": 31}}
+{"title": "The Road", "author": "Cormac McCarthy", "genre": "Dystopian", "publication_year": 2006, "language": "English", "rating": 2.1}
+{"index": {"_index": "a", "_id": 32}}
+{"title": "Life of Pi", "author": "Yann Martel", "genre": "Adventure", "publication_year": 2001, "language": "English", "rating": 4.3}
+{"index": {"_index": "a", "_id": 33}}
+{"title": "The Kite Runner", "author": "Khaled Hosseini", "genre": "Fiction", "publication_year": 2003, "language": "English", "rating": 4.2}
+{"index": {"_index": "a", "_id": 34}}
+{"title": "A Tale of Two Cities", "author": "Charles Dickens", "genre": "Historical Fiction", "publication_year": 1859, "language": "English", "rating": 4.5}
+{"index": {"_index": "a", "_id": 35}}
+{"title": "The Shining", "author": "Stephen King", "genre": "Horror", "publication_year": 1977, "language": "English", "rating": 4.9}
+{"index": {"_index": "a", "_id": 36}}
+{"title": "Invisible Man", "author": "Ralph Ellison", "genre": "Fiction", "publication_year": 1952, "language": "English", "rating": 1.7}
+{"index": {"_index": "a", "_id": 37}}
+{"title": "The Alchemist", "author": "Paulo Coelho", "genre": "Fiction", "publication_year": 1988, "language": "English", "rating": 2.6}
+{"index": {"_index": "a", "_id": 38}}
+{"title": "The Handmaid's Tale", "author": "Margaret Atwood", "genre": "Dystopian", "publication_year": 1985, "language": "English", "rating": 3.1}
+{"index": {"_index": "a", "_id": 39}}
+{"title": "Dune", "author": "Frank Herbert", "genre": "Science Fiction", "publication_year": 1965, "language": "English", "rating": 2.2}
+{"index": {"_index": "a", "_id": 40}}
+{"title": "The Name of the Rose", "author": "Umberto Eco", "genre": "Historical Mystery", "publication_year": 1980, "language": "English", "rating": 4.5}
+{"index": {"_index": "a", "_id": 41}}
+{"title": "The Bell Jar", "author": "Sylvia Plath", "genre": "Fiction", "publication_year": 1963, "language": "English", "rating": 3.6}
+{"index": {"_index": "a", "_id": 42}}
+{"title": "The Stranger", "author": "Albert Camus", "genre": "Philosophical Fiction", "publication_year": 1942, "language": "English", "rating": 2.5}
+{"index": {"_index": "a", "_id": 43}}
+{"title": "Perfume", "author": "Patrick S\u00fcskind", "genre": "Historical Fiction", "publication_year": 1985, "language": "English", "rating": 2.1}
+{"index": {"_index": "a", "_id": 44}}
+{"title": "Middlemarch", "author": "George Eliot", "genre": "Fiction", "publication_year": 1871, "language": "English", "rating": 3.5}
+{"index": {"_index": "a", "_id": 45}}
+{"title": "A Clockwork Orange", "author": "Anthony Burgess", "genre": "Dystopian", "publication_year": 1962, "language": "English", "rating": 4.7}
+{"index": {"_index": "a", "_id": 46}}
+{"title": "The Secret Garden", "author": "Frances Hodgson Burnett", "genre": "Children's Literature", "publication_year": 1911, "language": "English", "rating": 1.3}
+{"index": {"_index": "a", "_id": 47}}
+{"title": "The Giver", "author": "Lois Lowry", "genre": "Dystopian", "publication_year": 1993, "language": "English", "rating": 4.0}
+{"index": {"_index": "a", "_id": 48}}
+{"title": "The Little Prince", "author": "Antoine de Saint-Exup\u00e9ry", "genre": "Fiction", "publication_year": 1943, "language": "English", "rating": 3.3}
+{"index": {"_index": "a", "_id": 49}}
+{"title": "The Old Man and the Sea", "author": "Ernest Hemingway", "genre": "Fiction", "publication_year": 1952, "language": "English", "rating": 1.9}
+{"index": {"_index": "a", "_id": 50}}
+{"title": "Lolita", "author": "Vladimir Nabokov", "genre": "Fiction", "publication_year": 1955, "language": "English", "rating": 4.4}
+{"index": {"_index": "a", "_id": 51}}
+{"title": "Harry Potter and the Sorcerer's Stone", "author": "J.K. Rowling", "genre": "Fantasy", "publication_year": 1997, "language": "English", "rating": 1.0}
+{"index": {"_index": "a", "_id": 52}}
+{"title": "Harry Potter and the Chamber of Secrets", "author": "J.K. Rowling", "genre": "Fantasy", "publication_year": 1998, "language": "English", "rating": 2.0}
+{"index": {"_index": "a", "_id": 53}}
+{"title": "Harry Potter and the Prisoner of Azkaban", "author": "J.K. Rowling", "genre": "Fantasy", "publication_year": 1999, "language": "English", "rating": 4.4}
+{"index": {"_index": "a", "_id": 54}}
+{"title": "Harry Potter and the Goblet of Fire", "author": "J.K. Rowling", "genre": "Fantasy", "publication_year": 2000, "language": "English", "rating": 4.8}
+{"index": {"_index": "a", "_id": 55}}
+{"title": "Harry Potter and the Order of the Phoenix", "author": "J.K. Rowling", "genre": "Fantasy", "publication_year": 2003, "language": "English", "rating": 2.8}
+{"index": {"_index": "a", "_id": 56}}
+{"title": "Harry Potter and the Half-Blood Prince", "author": "J.K. Rowling", "genre": "Fantasy", "publication_year": 2005, "language": "English", "rating": 1.2}
+{"index": {"_index": "a", "_id": 57}}
+{"title": "Harry Potter and the Deathly Hallows", "author": "J.K. Rowling", "genre": "Fantasy", "publication_year": 2007, "language": "English", "rating": 1.7}
