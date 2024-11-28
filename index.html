@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Management System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Book Management System</h1>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#" id="home-link">Home</a>
+            <a class="nav-link" href="#" id="wishlist-link">Wishlist</a>
+            <a class="nav-link" href="#" id="read-link">Read</a>
+            <a class="nav-link" href="#" id="add-book-link">Add Book</a>
+        </nav>
+
+        <div id="main-content" class="mt-4"></div>
+
+        <!-- Modal for Book Details -->
+        <div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="bookModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="bookModalLabel">Book Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="book-form">
+                            <input type="hidden" id="book-id">
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" id="book-title" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Author</label>
+                                <input type="text" id="book-author" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Genre</label>
+                                <input type="text" id="book-genre" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Publication Year</label>
+                                <input type="number" id="book-year" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Language</label>
+                                <input type="text" id="book-language" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Rating</label>
+                                <input type="number" step="0.1" id="book-rating" class="form-control">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="add-to-wishlist" class="btn btn-primary">Add to Wishlist</button>
+                        <button type="button" id="update-book" class="btn btn-success">Update</button>
+                        <button type="button" id="delete-book" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = "http://localhost:5000";
+//------------------------------------------------------------------------------------ HOME ------------------------------------------------------------------------------------------------------------
+        function loadHomePage() {
+            $("#main-content").html(`
+                <div class="position-relative">
+                    <input id="search-box" class="form-control" placeholder="Search for books...">
+                    <ul id="search-suggestions" class="list-group position-absolute w-100" style="z-index: 1000; display: none;"></ul>
+                </div>
+                <button id="search-btn" class="btn btn-primary mt-2">Search</button>
+                <div id="search-results" class="mt-4"></div>
+            `);
+
+            // Real-time suggestions
+            $("#search-box").on("input", function () {
+                const query = $(this).val();
+                if (query.length > 0) {
+                    $.get(`${API_BASE}/fuzzy_search`, { query }, (data) => {
+                        const { suggestions } = data;
+                        if (suggestions.length > 0) {
+                            $("#search-suggestions").empty().show();
+                            suggestions.forEach(suggestion => {
+                                $("#search-suggestions").append(`
+                                    <li class="list-group-item suggestion-item">${suggestion}</li>
+                                `);
+                            });
+
+                            // Click on a suggestion
+                            $(".suggestion-item").click(function () {
+                                $("#search-box").val($(this).text());
+                                $("#search-suggestions").hide();
+                            });
+                        } else {
+                            $("#search-suggestions").hide();
+                        }
+                    });
+                } else {
+                    $("#search-suggestions").hide();
+                }
+            });
+
+            // Perform search on button click
+            $("#search-btn").click(() => {
+                const query = $("#search-box").val();
+                $.get(`${API_BASE}/search`, { query }, (data) => {
+                    const { books } = data;
+                    $("#search-results").empty();
+                    if (books.length === 0) {
+                        $("#search-results").html("<p>No books found.</p>");
+                        return;
+                    }
+                    books.forEach(book => {
+                        $("#search-results").append(`
+                            <div class="card mt-2">
+                                <div class="card-body">
+                                    <h5 class="card-title">${book.title}</h5>
+                                    <p class="card-text">${book.author} - ${book.genre}</p>
+                                    <button class="btn btn-info view-details" data-book='${JSON.stringify(book)}'>View Details</button>
+                                </div>
+                            </div>
+                        `);
+                    });
+
+                    // View details event
+                    $(".view-details").click(function () {
+                        const book = $(this).data("book");
+                        // Populate fields and make them non-editable
+                        $("#book-id").val(book.id || "");
+                        $("#book-title").val(book.title || "").prop("readonly", false);
+                        $("#book-author").val(book.author || "").prop("readonly", false);
+                        $("#book-genre").val(book.genre || "").prop("readonly", false);
+                        $("#book-year").val(book.publication_year || "").prop("readonly", false);
+                        $("#book-language").val(book.language || "").prop("readonly", false);
+                        $("#book-rating").val(book.rating || "").prop("readonly", false);
+
+                        // Check if the book is in the wishlist
+                        $.get(`${API_BASE}/wishlist`, (data) => {
+                            const isInWishlist = data.some(wishlistBook => wishlistBook.id === book.id);
+
+                            if (isInWishlist) {
+                                $("#add-to-wishlist").prop("disabled", true).text("Already in Wishlist");
+                            } else {
+                                $("#add-to-wishlist").prop("disabled", false).text("Add to Wishlist");
+                            }
+                        });
+
+                        // Show the modal
+                        $("#bookModal").modal("show");
+                        
+                        // Handle "Add to Wishlist" button click
+                        $("#add-to-wishlist").off("click").on("click", () => {
+                            const bookData = getBookFormData();
+                            $.ajax({
+                                url: `${API_BASE}/wishlist`,
+                                type: "POST",
+                                data: JSON.stringify(bookData),
+                                contentType: "application/json",
+                                success: () => {
+                                    alert("Book added to wishlist!");
+                                    $("#add-to-wishlist").prop("disabled", true).text("Already in Wishlist");
+                                    $("#bookModal").modal("hide");
+                                },
+                                error: (error) => {
+                                    alert("Failed to add to wishlist: " + error.responseText);
+                                }
+                            });
+                        });
+                    });
+                });
+            });
+        }
+
+//------------------------------------------------------------------------------------ WISHLIST PAGE------------------------------------------------------------------------------------------------------------
+        // Load Wishlist Page
+        $("#wishlist-link").click(() => {
+            $.get(`${API_BASE}/wishlist`, (data) => {
+                $("#main-content").html("<h3>Wishlist</h3>");
+                if (data.length === 0) {
+                    $("#main-content").append("<p>No books in your wishlist.</p>");
+                    return;
+                }
+                data.forEach(book => {
+                    $("#main-content").append(`
+                        <div class="card mt-2">
+                            <div class="card-body">
+                                <h5 class="card-title">${book.title}</h5>
+                                <p class="card-text">${book.author} - ${book.genre}</p>
+                                <button class="btn btn-secondary mark-as-read" data-book='${JSON.stringify(book)}'>Mark as Read</button>
+                                <button class="btn btn-danger delete-book" data-book='${JSON.stringify(book)}'>Remove from Wishlist</button>
+                            </div>
+                        </div>
+                    `);
+                });
+            });
+        });
+
+        // Mark as Read Handler
+        $(document).on("click", ".mark-as-read", function () {
+            const book = $(this).data("book"); // Get book data from button
+            $.ajax({
+                url: `${API_BASE}/mark_as_read`,
+                type: "POST",
+                data: JSON.stringify(book),
+                contentType: "application/json",
+                success: () => {
+                    alert("Book marked as read!");
+                    $("#wishlist-link").click(); // Refresh the wishlist page
+                },
+                error: (error) => {
+                    alert("Failed to mark as read: " + error.responseText);
+                }
+            });
+        });
+
+        // Remove from Wishlist Handler
+        $(document).on("click", ".delete-book", function () {
+            const book = $(this).data("book"); // Get the book object from the button
+            $.ajax({
+                url: `${API_BASE}/wishlist_remove`, // Your wishlist remove endpoint
+                type: "POST",
+                data: JSON.stringify(book),
+                contentType: "application/json",
+                success: () => {
+                    alert("Book removed from wishlist!");
+                    // Refresh the wishlist page
+                    $("#wishlist-link").click();
+
+                    // Update the search results if the book appears there
+                    $(`button[data-book-id="${book.id}"]`)
+                        .removeClass("btn-secondary")
+                        .addClass("btn-primary")
+                        .text("Add to Wishlist")
+                        .prop("disabled", false);
+                },
+                error: (error) => {
+                    alert("Failed to remove from wishlist: " + error.responseText);
+                }
+            });
+        });
+
+
+//------------------------------------------------------------------------------------ READ PAGE------------------------------------------------------------------------------------------------------------
+
+        // Load Read Page
+        $("#read-link").click(() => {
+            $.get(`${API_BASE}/read_books`, (data) => {
+                $("#main-content").html("<h3>Read Books</h3>");
+                if (data.length === 0) {
+                    $("#main-content").append("<p>No books have been marked as read.</p>");
+                    return;
+                }
+                
+                
+                data.forEach(book => {
+                    $("#main-content").append(`
+                        <div class="card mt-2">
+                            <div class="card-body">
+                                <h5 class="card-title">${book.title}</h5>
+                                <p class="card-text">${book.author} - ${book.genre}</p>
+                                <button class="btn btn-danger remove-from-read" data-book='${JSON.stringify(book)}'>Remove from Read</button>
+                            </div>
+                        </div>
+                    `);
+                });
+
+                // Update Book Button
+                $(".update-book").click(function () {
+                    const book = $(this).data("book");
+                    populateModal(book, false); // Open modal for updating (editable fields)
+                    $("#update-book").show(); // Ensure the update button is visible
+                    $("#bookModal").modal("show");
+                });
+
+                // Remove from Read Button
+                $(".delete-book").click(function () {
+                    const book = $(this).data("book");
+                    $.ajax({
+                        url: `${API_BASE}/read_books`,
+                        type: "POST",
+                        data: JSON.stringify({ action: "remove", book }),
+                        contentType: "application/json",
+                        success: () => {
+                            alert("Book removed from Read Books!");
+                            $("#read-link").click(); // Refresh Read Page
+                        },
+                        error: (error) => {
+                            alert("Failed to remove from Read Books: " + error.responseText);
+                        }
+                    });
+                });
+            });
+        });
+
+
+
+
+
+//------------------------------------------------------------------------------------ ADD BOOK ------------------------------------------------------------------------------------------------------------
+
+        // Load Add Book Page
+        $("#add-book-link").click(() => {
+            $("#main-content").html(`
+                <h3>Add a New Book</h3>
+                <form id="add-book-form">
+                    <input type="text" name="title" placeholder="Title" class="form-control mb-2" required>
+                    <input type="text" name="author" placeholder="Author" class="form-control mb-2" required>
+                    <input type="text" name="genre" placeholder="Genre" class="form-control mb-2" required>
+                    <input type="number" name="publication_year" placeholder="Publication Year" class="form-control mb-2" required>
+                    <input type="text" name="language" placeholder="Language" class="form-control mb-2" required>
+                    <input type="number" name="rating" placeholder="Rating" class="form-control mb-2" required>
+                    <button type="submit" class="btn btn-primary">Add Book</button>
+                </form>
+            `);
+
+            // $("#add-book-form").submit(function (e) {
+            //     e.preventDefault();
+            //     const book = $(this).serializeArray().reduce((acc, field) => {
+            //         acc[field.name] = field.value;
+            //         return acc;
+            //     }, {});
+            //     $.post(`${API_BASE}/add`, JSON.stringify(book), () => {
+            //         alert("Book added successfully!");
+            //         loadHomePage();
+            //     });
+            // });
+            $("#add-book-form").submit(function (e) {
+                e.preventDefault();
+                const book = $(this).serializeArray().reduce((acc, field) => {
+                    acc[field.name] = field.value;
+                    return acc;
+                }, {});
+
+                $.ajax({
+                    url: `${API_BASE}/add`,
+                    type: "POST",
+                    data: JSON.stringify(book),
+                    contentType: "application/json",
+                    success: () => {
+                        alert("Book added successfully!");
+                        loadHomePage(); // Reload the homepage to show updated data
+                    },
+                    error: (error) => {
+                        alert("Failed to add book: " + error.responseText);
+                    }
+                });
+            });
+            
+        });
+
+        function populateModal(book) {
+            $("#book-id").val(book.id);
+            $("#book-title").val(book.title).prop("readonly", false);
+            $("#book-author").val(book.author).prop("readonly", false);
+            $("#book-genre").val(book.genre).prop("readonly", false);
+            $("#book-year").val(book.publication_year).prop("readonly", false);
+            $("#book-language").val(book.language).prop("readonly", false);
+            $("#book-rating").val(book.rating).prop("readonly", false);
+
+            $("#update-book").show(); // Always show the update button
+        }
+
+
+        // Check if a book is in the wishlist
+        function isInWishlist(bookId) {
+            let inWishlist = false;
+            $.ajax({
+                url: `${API_BASE}/wishlist`,
+                type: "GET",
+                async: false, // Wait for the response
+                success: (data) => {
+                    inWishlist = data.some(book => book.id === bookId);
+                }
+            });
+            return inWishlist;
+        }
+
+        // Add to Wishlist Button
+        $("#add-to-wishlist").click(() => {
+            const book = getBookFormData();
+            $.post(`${API_BASE}/wishlist`, JSON.stringify(book), (response) => {
+                alert("Book added to wishlist!");
+                $("#add-to-wishlist").prop("disabled", true).text("Already in Wishlist");
+                $("#bookModal").modal("hide");
+            });
+        });
+
+ 
+        // Home Button Click Handler
+        $("#home-link").click(() => {
+            loadHomePage(); // Calls the function to load the homepage
+        });
+
+ 
+
+        $("#update-book").click(() => {
+            const book = getBookFormData();
+            $.ajax({
+                url: `${API_BASE}/update/${book.id}`,
+                type: "PUT",
+                data: JSON.stringify(book),
+                contentType: "application/json",
+                success: () => {
+                    alert("Book updated successfully!");
+                    $("#bookModal").modal("hide");
+                    loadHomePage(); // Reload homepage to reflect changes
+                }
+            });
+        });
+
+        $("#delete-book").click(() => {
+            const bookId = $("#book-id").val();
+            $.ajax({
+                url: `${API_BASE}/delete/${bookId}`,
+                type: "DELETE",
+                success: () => {
+                    alert("Book deleted successfully!");
+                    $("#bookModal").modal("hide");
+                }
+            });
+        });
+
+        // Remove from Read Page Button
+        $(document).on("click", ".remove-from-read", function () {
+            const book = $(this).data("book"); // Get the book object from button
+            $.ajax({
+                url: `${API_BASE}/read_books`,
+                type: "POST",
+                data: JSON.stringify({ action: "remove", book }),
+                contentType: "application/json",
+                success: () => {
+                    alert("Book removed from Read Books!");
+                    $("#read-link").click(); // Refresh the Read Page
+                },
+                error: (error) => {
+                    alert("Failed to remove from Read Books: " + error.responseText);
+                }
+            });
+        });
+
+
+        function getBookFormData() {
+            return {
+                id: $("#book-id").val(),
+                title: $("#book-title").val(),
+                author: $("#book-author").val(),
+                genre: $("#book-genre").val(),
+                publication_year: $("#book-year").val(),
+                language: $("#book-language").val(),
+                rating: $("#book-rating").val()
+            };
+        }
+
+        // Initialize Home Page
+        loadHomePage();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
