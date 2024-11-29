@@ -10,7 +10,7 @@ es = Elasticsearch(
     verify_certs=False  # Disable certificate verification for local testing
 )
 
-INDEX_NAME = "a"  # Index for book data
+INDEX_NAME = "books"  # Index for book data
 
 # Search for books
 @app.route("/search", methods=["GET"])
